@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosaire</title>
+    <!-- <script src="js/fullpage.min.js"></script> -->
+    <script src="js/fullpage.js"></script>
+    <!-- <script src="js/fullpage.extensions.min.js"></script> -->
+
+    <link rel="stylesheet" href="css/fullpage.min.css">
+    <style>
+        .section {
+            text-align:center;
+            font-size: 3em;
+            font-family: arial;
+        }
+
+        .slide{
+			background-size: cover;
+			transform: translate3d(0,0,0);
+			-webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
+    		backface-visibility: hidden;
+		}
+		/* #slide1-1 .fp-bg{ */
+        #slide1-1 {
+			background-image: url('images/mysteries/glorious/3-pentecost.jpg');
+			background-position: center 80%;
+		}
+
+    </style>
+    <script>
+
+        class Mystere {
+            constructor(name, description) {
+                this.name = name;
+                this.description = description;
+            }
+
+            get anchor() {
+                return this.slugify(this.name);
+            }
+
+            slugify(string) {
+                return string.toLowerCase()
+                    .replace(/[éèêë]/g, 'e')
+                    .replace(/[ìíîï]/g, 'i')
+                    .replace(/[òóôõ]/g, 'o')
+                    .replace(/[ùúûü]/g, 'u')
+                    .replace(/[^\w ]+/g, '')
+                    .replace(/ +/g, '-');
+            }
+        }
+
+        class Chapelet {
+            constructor(name, mysteres) {
+                this.name = name;
+                this.mysteres = mysteres;
+            }
+
+            get anchors() {
+                return this.mysteres.map(m => m.anchor);
+            }
+
+            get backgroundColors() {
+                return this.mysteres.map(m => 'white');
+            }
+        }
+
+        const mysteres = [
+            new Chapelet('joyeux', [
+                new Mystere("L'annonciation", "L'ange Gabriel annonce à Marie qu'elle sera la mère du Sauveur."),
+                new Mystere("La visitation", "Marie rend visite à sa cousine Élisabeth, qui attend Jean-Baptiste."),
+                new Mystere("La nativité", "Jésus naît dans une crèche à Bethléem."),
+                new Mystere("La présentation de Jésus au Temple", "Jésus est présenté au Temple conformément à la loi de Moïse."),
+                new Mystere("Le recouvrement de Jésus au Temple", "À douze ans, Jésus est retrouvé dans le Temple après trois jours."),
+            ]),
+            new Chapelet('lumineux', [
+                new Mystere("Le baptême de Jésus", "Jésus est baptisé par Jean-Baptiste dans le Jourdain."),
+                new Mystere("Les noces de Cana", "Jésus accomplit son premier miracle en changeant l'eau en vin."),
+                new Mystere("L'annonce du Royaume", "Jésus prêche la bonne nouvelle du Royaume de Dieu et appelle les gens à la repentance."),
+                new Mystere("La transfiguration", "Jésus se révèle dans sa gloire devant trois apôtres, en compagnie de Moïse et d'Élie."),
+                new Mystere("L'institution de l'eucharistie", "Jésus institue l'Eucharistie lors de la Dernière Cène."),
+            ]),
+            new Chapelet('douloureux', [
+                new Mystere("L'agonie de Jésus", "Jésus prie et souffre dans le jardin de Gethsémani."),
+                new Mystere("La flagellation", "Jésus est fouetté sur ordre de Pilate."),
+                new Mystere("Le couronnement d'épines", "Jésus est moqué et couronné d'épines."),
+                new Mystere("Le portement de la croix", "Jésus porte sa croix jusqu'au Golgotha."),
+                new Mystere("La crucifixion", "Jésus est cloué sur la croix et meurt pour nos péchés."),
+            ]),
+            new Chapelet('glorieux', [
+                new Mystere("La résurrection", "Jésus ressuscite d'entre les morts au matin de Pâques."),
+                new Mystere("L'ascension", "Jésus monte au ciel et s'assied à la droite du Père."),
+                new Mystere("La Pentecôte", "L'Esprit Saint descend sur les apôtres et Marie."),
+                new Mystere("L'assomption", "Marie est élevée au ciel, corps et âme."),
+                new Mystere("Le couronnement de Marie", "Marie est couronnée Reine du ciel et de la terre."),
+            ]),
+        ]
+
+        class App {
+            
+            constructor(container, chapelets) {
+                this.container = container;
+                this.chapelets = chapelets;
+
+                this.init(this.chapelets[0]);
+            }
+
+            init(chapelet) {
+                const html = this.sectionsHTML(chapelet).join('')
+                document.querySelector(this.container).innerHTML = html;
+
+                new fullpage('#fullpage', {
+                    sectionsColor: chapelet.backgroundColors,
+                    anchors: chapelet.anchors,
+                    // TODO: get a proper license and revert my hacks to disable license checking.
+                    // Get your license at https://alvarotrigo.com/fullPage/pricing/
+                    // licenseKey: 'YOUR LICENSE KEY HERE '
+                });
+
+            }
+            
+            sectionsHTML(chapelet) {
+                return chapelet.mysteres.map(mystere => {
+                    return `<div class="section">
+                            <div class="slide" data-anchor="${mystere.anchor}">
+                                <h1>${mystere.name}</h1>
+                                <p>${mystere.description}</p>
+                            </div>
+                        </div>
+                    `
+                })
+            }
+        }
+
+
+        window.addEventListener('DOMContentLoaded', () => {
+
+            const app = new App('#fullpage', mysteres);
+
+        })
+    </script>
+</head>
+<body>
+    <div id="fullpage">
+        <!-- <div class="section">
+            <div class="fp-bg"></div>
+            <h1>Instructions</h1>
+            <dl>
+                <dt>Balayer horizontalement</dt>
+                <dd>Passer à une autre image du même mystère</dd>
+
+                <dt>Balayer verticalement</dt>
+                <dd>Passer à un autre mystère</dd>
+            </dl>
+        </div> -->
+        <div class="section">
+            <div class="slide" id="slide1-1" data-anchor="slide1">
+                <h1>Premier mystère </h1>
+            </div>
+            <div class="slide" data-anchor="slide2">
+                <h1>Slide 2.2</h1>
+            </div>
+        </div>
+        <div class="section">
+            <div class="fp-bg"></div>
+            <h2>Section 3</h2>
+        </div>
+    </div>
+</body>
+</html>
