@@ -1,0 +1,32 @@
+.section {
+    text-align:center;
+    font-size: 3em;
+    font-family: arial;
+}
+
+.slide{
+    background-size: cover;
+    transform: translate3d(0,0,0);
+    -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
+    backface-visibility: hidden;
+}
+.slide.image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.fp-arrow.fp-prev, .fp-arrow.fp-next {
+    border: none;
+}
+.fp-arrow.fp-prev, .fp-arrow.fp-next {
+    width: 50px;
+    height: 50px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="10,50 50,90 50,10" fill="black"/></svg>');
+    background-size: contain; /* Adjusts the size */
+    background-repeat: no-repeat; /* Ensures the image doesn't repeat */
+}
+.fp-arrow.fp-next {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,50 10,90 10,10" fill="black"/></svg>');
+}

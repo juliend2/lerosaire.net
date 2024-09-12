@@ -9,99 +9,17 @@
     <!-- <script src="js/fullpage.extensions.min.js"></script> -->
 
     <link rel="stylesheet" href="css/fullpage.min.css">
-    <style>
-        .section {
-            text-align:center;
-            font-size: 3em;
-            font-family: arial;
-        }
+    <link rel="stylesheet" href="css/main.css">
 
-        .slide{
-            background-size: cover;
-            transform: translate3d(0,0,0);
-            -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
-            backface-visibility: hidden;
-        }
-        .slide.image {
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-attachment: fixed;
+    <script type="module">
+        import Chapelet from './js/src/chapelet.js';
+        import Mystere from './js/src/mystere.js';
+        import App from './js/src/app.js';
 
-        }
-
-        #slide1-1 {
-            background-image: url('images/mysteries/glorious/3-pentecost.jpg');
-            background-position: center 80%;
-        }
-
-        .fp-arrow.fp-prev, .fp-arrow.fp-next {
-            border: none;
-        }
-        .fp-arrow.fp-prev, .fp-arrow.fp-next {
-            width: 50px;
-            height: 50px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="10,50 50,90 50,10" fill="black"/></svg>');
-            background-size: contain; /* Adjusts the size */
-            background-repeat: no-repeat; /* Ensures the image doesn't repeat */
-        }
-        .fp-arrow.fp-next {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,50 10,90 10,10" fill="black"/></svg>');
-        }
-    </style>
-    <script>
-
-        class Mystere {
-            constructor(name, description, images = []) {
-                this.name = name;
-                this.description = description;
-                this.imageSources = images;
-            }
-
-            get anchor() {
-                return this.slugify(this.name);
-            }
-
-            get images() {
-                return this.imageSources;
-            }
-
-            set images(sources) {
-                this.imageSources = sources;
-            }
-
-            slugify(string) {
-                return string.toLowerCase()
-                    .replace(/[éèêë]/g, 'e')
-                    .replace(/[ìíîï]/g, 'i')
-                    .replace(/[òóôõ]/g, 'o')
-                    .replace(/[ùúûü]/g, 'u')
-                    .replace(/[^\w ]+/g, '')
-                    .replace(/ +/g, '-');
-            }
-
-        }
-
-        class Chapelet {
-            constructor(name, mysteres) {
-                this.name = name;
-                this.mysteres = mysteres;
-            }
-
-            get anchors() {
-                return this.mysteres.map(m => m.anchor);
-            }
-
-            get backgroundColors() {
-                return this.mysteres.map(m => 'white');
-            }
-        }
-
-        const mysteres = [
+        const chapelets = [
             new Chapelet('joyeux', [
                 new Mystere("L'annonciation", "L'ange Gabriel annonce à Marie qu'elle sera la mère du Sauveur."),
                 new Mystere("La visitation", "Marie rend visite à sa cousine Élisabeth, qui attend Jean-Baptiste.", [
-                    'images/mysteries/joyeux/2-visitation/marie-visite-elisabeth.png',
                 ]),
                 new Mystere("La nativité", "Jésus naît dans une crèche à Bethléem."),
                 new Mystere("La présentation de Jésus au Temple", "Jésus est présenté au Temple conformément à la loi de Moïse."),
@@ -122,7 +40,9 @@
                 new Mystere("La crucifixion", "Jésus est cloué sur la croix et meurt pour nos péchés."),
             ]),
             new Chapelet('glorieux', [
-                new Mystere("La résurrection", "Jésus ressuscite d'entre les morts au matin de Pâques."),
+                new Mystere("La résurrection", "Jésus ressuscite d'entre les morts au matin de Pâques.", [
+                    'images/mysteries/glorieux/1-resurrection/ai-generated-8646339.jpg',
+                ]),
                 new Mystere("L'ascension", "Jésus monte au ciel et s'assied à la droite du Père."),
                 new Mystere("La Pentecôte", "L'Esprit Saint descend sur les apôtres et Marie."),
                 new Mystere("L'assomption", "Marie est élevée au ciel, corps et âme."),
@@ -130,52 +50,11 @@
             ]),
         ]
 
-        class App {
-            
-            constructor(container, chapelets) {
-                this.container = container;
-                this.chapelets = chapelets;
-
-                this.init(this.chapelets[0]);
-            }
-
-            init(chapelet) {
-                const html = this.sectionsHTML(chapelet).join('')
-                document.querySelector(this.container).innerHTML = html;
-
-                new fullpage('#fullpage', {
-                    sectionsColor: chapelet.backgroundColors,
-                    anchors: chapelet.anchors,
-                    // TODO: get a proper license and revert my hacks to disable license checking.
-                    // Get your license at https://alvarotrigo.com/fullPage/pricing/
-                    // licenseKey: 'YOUR LICENSE KEY HERE '
-                });
-
-            }
-            
-            sectionsHTML(chapelet) {
-                return chapelet.mysteres.map(mystere => {
-                    return `<div class="section">
-                            <div class="slide" data-anchor="${mystere.anchor}">
-                                <h1>${mystere.name}</h1>
-                                <p>${mystere.description}</p>
-                            </div>
-                            ${mystere.images.map(src => {
-                                return `<div class="slide image" data-anchor="${mystere.anchor}--2" style="background-image: url(${src});">
-                                    <h1>Scroll horizontal</h1>
-                                </div>`
-                            })}
-                            
-                        </div>
-                    `
-                })
-            }
-        }
 
 
         window.addEventListener('DOMContentLoaded', () => {
 
-            const app = new App('#fullpage', mysteres);
+            const app = new App('#fullpage', chapelets);
 
         })
     </script>
