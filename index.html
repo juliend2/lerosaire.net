@@ -22,7 +22,14 @@
             -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
             backface-visibility: hidden;
         }
-        /* #slide1-1 .fp-bg{ */
+        .slide.image {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+
+        }
+
         #slide1-1 {
             background-image: url('images/mysteries/glorious/3-pentecost.jpg');
             background-position: center 80%;
@@ -45,13 +52,22 @@
     <script>
 
         class Mystere {
-            constructor(name, description) {
+            constructor(name, description, images = []) {
                 this.name = name;
                 this.description = description;
+                this.imageSources = images;
             }
 
             get anchor() {
                 return this.slugify(this.name);
+            }
+
+            get images() {
+                return this.imageSources;
+            }
+
+            set images(sources) {
+                this.imageSources = sources;
             }
 
             slugify(string) {
@@ -63,6 +79,7 @@
                     .replace(/[^\w ]+/g, '')
                     .replace(/ +/g, '-');
             }
+
         }
 
         class Chapelet {
@@ -83,7 +100,9 @@
         const mysteres = [
             new Chapelet('joyeux', [
                 new Mystere("L'annonciation", "L'ange Gabriel annonce à Marie qu'elle sera la mère du Sauveur."),
-                new Mystere("La visitation", "Marie rend visite à sa cousine Élisabeth, qui attend Jean-Baptiste."),
+                new Mystere("La visitation", "Marie rend visite à sa cousine Élisabeth, qui attend Jean-Baptiste.", [
+                    'images/mysteries/joyeux/2-visitation/marie-visite-elisabeth.png',
+                ]),
                 new Mystere("La nativité", "Jésus naît dans une crèche à Bethléem."),
                 new Mystere("La présentation de Jésus au Temple", "Jésus est présenté au Temple conformément à la loi de Moïse."),
                 new Mystere("Le recouvrement de Jésus au Temple", "À douze ans, Jésus est retrouvé dans le Temple après trois jours."),
@@ -141,9 +160,12 @@
                                 <h1>${mystere.name}</h1>
                                 <p>${mystere.description}</p>
                             </div>
-                            <div class="slide" data-anchor="${mystere.anchor}--2">
-                                <h1>Scroll horizontal</h1>
-                            </div>
+                            ${mystere.images.map(src => {
+                                return `<div class="slide image" data-anchor="${mystere.anchor}--2" style="background-image: url(${src});">
+                                    <h1>Scroll horizontal</h1>
+                                </div>`
+                            })}
+                            
                         </div>
                     `
                 })
