@@ -6,7 +6,7 @@ export default class App {
         this.container = container;
         this.chapelets = chapelets;
 
-        this.init(this.chapelets[0]);
+        this.init(this.chapelets[3]);
     }
 
     init(chapelet) {
