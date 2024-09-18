@@ -1,3 +1,4 @@
+import Slide from './slide.js'
 
 export default class App {
             
@@ -5,11 +6,11 @@ export default class App {
         this.container = container;
         this.chapelets = chapelets;
 
-        this.init(this.chapelets[3]);
+        this.init(this.chapelets[0]);
     }
 
     init(chapelet) {
-        const html = this.sectionsHTML(chapelet).join('')
+        const html = this.sectionsHTML(chapelet)
         document.querySelector(this.container).innerHTML = html;
 
         new fullpage('#fullpage', {
@@ -24,19 +25,9 @@ export default class App {
     
     sectionsHTML(chapelet) {
         return chapelet.mysteres.map(mystere => {
-            return `<div class="section">
-                    <div class="slide" data-anchor="${mystere.anchor}">
-                        <h1>${mystere.name}</h1>
-                        <p>${mystere.description}</p>
-                    </div>
-                    ${mystere.images.map(src => {
-                        return `<div class="slide image" data-anchor="${mystere.anchor}--2" style="background-image: url(${src});">
-                            <h1>Scroll horizontal</h1>
-                        </div>`
-                    })}
-                    
-                </div>
-            `
-        })
+            return `<div class="section">${
+                mystere.toHTML()
+            }</div>`
+        }).join('')
     }
 }

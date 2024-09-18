@@ -1,3 +1,4 @@
+import Slide from './slide.js'
 
 export default class Mystere {
     constructor(name, description, images = []) {
@@ -28,5 +29,13 @@ export default class Mystere {
             .replace(/ +/g, '-');
     }
 
+    toHTML() {
+        return this.imageSources.map((imgSrc, index) => {
+            const slide = new Slide(index, this, imgSrc, {
+                title: this.name
+            })
+            return slide.toHTML()
+        }).join('')
+    }
 }
 
