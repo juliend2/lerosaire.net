@@ -18,6 +18,46 @@ body {
     color: white;
     mix-blend-mode: difference;
 }
+#chapelets-navigation {
+    position: fixed;
+    z-index: 13;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#chapelets-navigation .x-close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    display: block;
+    color: transparent;
+    width: 20px;
+    height: 20px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 233 291.25"><polygon class="fil0" points="233,22 211,0 117,94 22,0 0,22 94,117 0,211 22,233 117,139 211,233 233,211 139,117 " fill="black"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 10px;
+}
+#chapelets-navigation ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+#chapelets-navigation ul li {
+    line-height: 4rem;
+}
+#chapelets-navigation ul a {
+    color: black;
+    font-size: 1.5rem;
+    text-decoration: none;
+}
 #slides {
     height: 100vh;
 }
@@ -39,9 +79,6 @@ body {
     background-size: cover;
     background-attachment: fixed;
 }
-
-
-
 
 .mystere__titre {
     color: white;

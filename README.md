@@ -9,4 +9,4 @@ Lisez-moi
     * [ ] Ajouter les attributions quelque part (page "à propos")
 * [ ] Permettre de passer d'un chapelet à un autre
 * [ ] Afficher une map du parcour du chapelet
-
+* [ ] Rendre `.git/*` inaccessible sur le site
