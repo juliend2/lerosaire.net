@@ -26,7 +26,7 @@ export default class App {
     
     sectionsHTML(chapelet) {
         return `<nav id="navigation">
-                ${chapelet.name}
+                Mystère ${chapelet.name}
             </nav>
             <section id="slides">
             ${

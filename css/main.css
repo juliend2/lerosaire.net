@@ -5,7 +5,8 @@ body {
 #navigation {
     position: fixed;
     z-index: 12;
-    background: white;
+    /* background: white; */
+    color: white;
     top: 0;
     left: 0;
     right: 0;
