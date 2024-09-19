@@ -27,7 +27,7 @@
                     'images/mysteries/joyeux/3-naissance-jesus/naissance-1.png#bottom+center',
                     'images/mysteries/joyeux/3-naissance-jesus/61b5ed3d9e247e3211cbf64b_bargers-Adoracion_de_los_pastores_.jpg',
                     'images/mysteries/joyeux/3-naissance-jesus/619e577f3a5796ae8b9fff16_jesus-nativite-noel-lieu-de-naissance.jpg',
-                    'images/mysteries/joyeux/3-naissance-jesus/61b5ebdd97d4f942e56f46ba_Jules_Bastien-Lepage_-_The_Annunciation_to_the_Shepherds_-_Google_Art_Project.jpg',
+                    'images/mysteries/joyeux/3-naissance-jesus/61b5ebdd97d4f942e56f46ba_Jules_Bastien-Lepage_-_The_Annunciation_to_the_Shepherds_-_Google_Art_Project.jpg#top+center',
                     'images/mysteries/joyeux/3-naissance-jesus/5fb288a8fdb370d80a3684be_2.jpg',
                 ]),
                 new Mystere("La présentation de Jésus au Temple", "Jésus est présenté au Temple conformément à la loi de Moïse.", [
@@ -100,14 +100,25 @@
         }
 
         window.hideChapeletNavigation = function(e) {
-            console.log('ici hideChapeletsNavigation')
             app.hideChapeletsNavigation()
             return false;
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             const container = document.querySelector('#fullpage')
-            app = new App(container, chapelets);
+
+            const queryString = window.location.search;
+            let chapeletIndex = 1;
+
+            if (queryString.length > 0) {
+                const urlParams = new URLSearchParams(queryString);
+                const chapeletParam = urlParams.get('c')
+                if (parseInt(chapeletParam, 10) > 0 && parseInt(chapeletParam, 10) < chapelets.length + 1) {
+                    chapeletIndex = parseInt(chapeletParam)
+                }
+            }
+
+            app = new App(container, chapelets, chapeletIndex);
         })
 
     </script>

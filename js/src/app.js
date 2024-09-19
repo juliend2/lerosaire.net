@@ -1,10 +1,10 @@
 export default class App {
             
-    constructor(container, chapelets) {
+    constructor(container, chapelets, currentChapeletIndex = 1) {
         this.index = 0
         this.container = container;
         this.chapelets = chapelets;
-        this.currentChapelet = this.chapelets[3]
+        this.currentChapelet = this.chapelets[currentChapeletIndex - 1]
 
         this.init(this.currentChapelet);
     }
