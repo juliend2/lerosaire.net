@@ -95,7 +95,8 @@
 
 
         window.addEventListener('DOMContentLoaded', () => {
-            const app = new App('#fullpage', chapelets);
+            const container = document.querySelector('#fullpage')
+            const app = new App(container, chapelets);
         })
 
     </script>

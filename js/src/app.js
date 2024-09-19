@@ -1,6 +1,7 @@
 export default class App {
             
     constructor(container, chapelets) {
+        this.index = 0
         this.container = container;
         this.chapelets = chapelets;
         this.currentChapelet = this.chapelets[3]
@@ -10,7 +11,7 @@ export default class App {
 
     init(chapelet) {
         const html = this.sectionsHTML(chapelet)
-        document.querySelector(this.container).innerHTML = html;
+        this.container.innerHTML = html;
 
         new fullpage('#fullpage #slides', {
             sectionsColor: chapelet.backgroundColors,
@@ -18,13 +19,24 @@ export default class App {
             // TODO: get a proper license and revert my hacks to disable license checking.
             // Get your license at https://alvarotrigo.com/fullPage/pricing/
             // licenseKey: 'YOUR LICENSE KEY HERE '
+            afterSlideLoad: ( section, origin, destination, direction, trigger) => {
+                
+                this.index = section.index
+                
+                this.container.querySelector('#navigation').innerHTML = this.navigationText(chapelet)
+                //second slide of the second section (supposing #secondSlide is the
+                //anchor for the second slide)
+                // if(section.index == 1){
+                //     alert("Second slide loaded");
+                // }
+            }
         });
 
     }
-    
+
     sectionsHTML(chapelet) {
         return `<nav id="navigation">
-                Mystères ${chapelet.name}
+                ${this.navigationText(chapelet)}
             </nav>
             <section id="slides">
             ${
@@ -35,5 +47,12 @@ export default class App {
                 }).join('')
             }
             </section>`
+    }
+
+    navigationText(chapelet) {
+        return `<a href="#" id="chapelet__switch">
+            Mystères ${chapelet.name}</a>: 
+            ${chapelet.mysteres[this.index].name}
+            `
     }
 }
