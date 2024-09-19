@@ -18,7 +18,8 @@ export default class Slide {
                     data-anchor="${this.mystere.anchor}--${this.index}"
                     style="background-image: url(${src}); ${backgroundPosition}"
                 >
-                    <h1 class="mystere__titre">${this.options?.title}</h1>
+                    ${this.index == 0 ? `<h1 class="mystere__titre">${this.options?.title}</h1>` : ''}
+                    
                 </div>`
     }
 }

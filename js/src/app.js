@@ -1,5 +1,3 @@
-import Slide from './slide.js'
-
 export default class App {
             
     constructor(container, chapelets) {
@@ -26,7 +24,7 @@ export default class App {
     
     sectionsHTML(chapelet) {
         return `<nav id="navigation">
-                Mystère ${chapelet.name}
+                Mystères ${chapelet.name}
             </nav>
             <section id="slides">
             ${

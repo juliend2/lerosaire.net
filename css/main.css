@@ -1,5 +1,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
+    font-size: max(16px, 1.5vh);
 }
 
 #navigation {
@@ -12,6 +13,9 @@ body {
     right: 0;
     min-height: 50px;
     height: 10vh;
+    color: white;
+    mix-blend-mode: difference;
+    padding: .5rem;
 }
 #slides {
     height: 100vh;
@@ -41,6 +45,8 @@ body {
 .mystere__titre {
     color: white;
     mix-blend-mode: difference;
+    font-size: 2.5rem;
+    padding: 0 2rem;
 }
 
 .fp-arrow.fp-prev, .fp-arrow.fp-next {
@@ -50,9 +56,17 @@ body {
     width: 50px;
     height: 50px;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="10,50 50,90 50,10" fill="white"/></svg>');
-    background-size: contain; /* Adjusts the size */
-    background-repeat: no-repeat; /* Ensures the image doesn't repeat */
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 .fp-arrow.fp-next {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,50 10,90 10,10" fill="white"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="90,50 50,90 50,10" fill="white"/></svg>');
+}
+@media screen and (max-width: 767px) {
+    .fp-prev {
+        left: 0;
+    }
+    .fp-next {
+        right: 0;
+    }
 }
