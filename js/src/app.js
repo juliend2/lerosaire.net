@@ -19,16 +19,10 @@ export default class App {
             // TODO: get a proper license and revert my hacks to disable license checking.
             // Get your license at https://alvarotrigo.com/fullPage/pricing/
             // licenseKey: 'YOUR LICENSE KEY HERE '
+            
             afterSlideLoad: ( section, origin, destination, direction, trigger) => {
-                
                 this.index = section.index
-                
                 this.container.querySelector('#navigation').innerHTML = this.navigationText(chapelet)
-                //second slide of the second section (supposing #secondSlide is the
-                //anchor for the second slide)
-                // if(section.index == 1){
-                //     alert("Second slide loaded");
-                // }
             }
         });
 

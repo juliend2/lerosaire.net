@@ -46,8 +46,13 @@ body {
 .mystere__titre {
     color: white;
     mix-blend-mode: difference;
-    font-size: 2.5rem;
+    font-size: 4.5rem;
     padding: 0 2rem;
+}
+@media screen and (max-width: 767px) {
+    .mystere__titre {
+        font-size: 2.5rem;
+    }
 }
 
 .fp-arrow.fp-prev, .fp-arrow.fp-next {
@@ -59,9 +64,11 @@ body {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="10,50 50,90 50,10" fill="white"/></svg>');
     background-size: contain;
     background-repeat: no-repeat;
+    mix-blend-mode: difference;
 }
 .fp-arrow.fp-next {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="90,50 50,90 50,10" fill="white"/></svg>');
+    mix-blend-mode: difference;
 }
 @media screen and (max-width: 767px) {
     .fp-prev {
